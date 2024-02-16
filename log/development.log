@@ -889,3 +889,570 @@ Processing by TransactionsController#index as HTML
 Completed 200 OK in 25ms (Views: 12.4ms | ActiveRecord: 1.8ms | Allocations: 10296)
 
 
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+Started GET "/" for 127.0.0.1 at 2024-02-16 11:26:33 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.5ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 173.1ms | Allocations: 131868)
+  Rendered layout layouts/application.html.erb (Duration: 189.7ms | Allocations: 150023)
+Completed 200 OK in 322ms (Views: 184.4ms | ActiveRecord: 22.4ms | Allocations: 349803)
+
+
+Started GET "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 11:26:42 +0500
+Processing by TransactionsController#index as HTML
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.4ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.7ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.4ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 1]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 6.3ms | Allocations: 2351)
+  Rendered layout layouts/application.html.erb (Duration: 10.7ms | Allocations: 6604)
+Completed 200 OK in 35ms (Views: 11.2ms | ActiveRecord: 3.0ms | Allocations: 12184)
+
+
+Started GET "/categories" for 127.0.0.1 at 2024-02-16 11:26:46 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.7ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.5ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 15.4ms | Allocations: 5640)
+  Rendered layout layouts/application.html.erb (Duration: 21.2ms | Allocations: 9883)
+Completed 200 OK in 36ms (Views: 19.6ms | ActiveRecord: 3.6ms | Allocations: 11660)
+
+
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:11:39 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.4ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.4ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 160.5ms | Allocations: 119713)
+  Rendered layout layouts/application.html.erb (Duration: 176.8ms | Allocations: 137968)
+Completed 200 OK in 323ms (Views: 172.9ms | ActiveRecord: 22.5ms | Allocations: 337740)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:11:47 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.6ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 23.6ms | Allocations: 5647)
+  Rendered layout layouts/application.html.erb (Duration: 31.3ms | Allocations: 9890)
+Completed 200 OK in 43ms (Views: 29.7ms | ActiveRecord: 3.6ms | Allocations: 11670)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:11:49 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.5ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.5ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 18.9ms | Allocations: 5654)
+  Rendered layout layouts/application.html.erb (Duration: 24.8ms | Allocations: 9897)
+Completed 200 OK in 33ms (Views: 23.2ms | ActiveRecord: 3.0ms | Allocations: 11673)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:11:49 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 11.1ms | Allocations: 5640)
+  Rendered layout layouts/application.html.erb (Duration: 17.4ms | Allocations: 9883)
+Completed 200 OK in 23ms (Views: 16.5ms | ActiveRecord: 1.8ms | Allocations: 11663)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:11:50 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.6ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.7ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 20.1ms | Allocations: 5637)
+  Rendered layout layouts/application.html.erb (Duration: 26.1ms | Allocations: 9879)
+Completed 200 OK in 35ms (Views: 24.7ms | ActiveRecord: 2.8ms | Allocations: 11650)
+
+
+Started GET "/categories/2/transactions" for 127.0.0.1 at 2024-02-16 14:12:10 +0500
+Processing by TransactionsController#index as HTML
+  Parameters: {"category_id"=>"2"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 2]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 4.7ms | Allocations: 2023)
+  Rendered layout layouts/application.html.erb (Duration: 9.6ms | Allocations: 6276)
+Completed 200 OK in 22ms (Views: 10.1ms | ActiveRecord: 1.7ms | Allocations: 10909)
+
+
+Started GET "/categories" for 127.0.0.1 at 2024-02-16 14:12:12 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.7ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 18.8ms | Allocations: 5640)
+  Rendered layout layouts/application.html.erb (Duration: 23.9ms | Allocations: 9883)
+Completed 200 OK in 36ms (Views: 22.1ms | ActiveRecord: 3.3ms | Allocations: 11651)
+
+
+Started GET "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:12:13 +0500
+Processing by TransactionsController#index as HTML
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (1.1ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.8ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.5ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 1]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 6.3ms | Allocations: 1889)
+  Rendered layout layouts/application.html.erb (Duration: 14.9ms | Allocations: 6142)
+Completed 200 OK in 50ms (Views: 15.2ms | ActiveRecord: 4.4ms | Allocations: 11354)
+
+
+Started GET "/categories/1/transactions/new" for 127.0.0.1 at 2024-02-16 14:12:32 +0500
+Processing by TransactionsController#new as HTML
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:11:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/new.html.erb within layouts/application
+  Rendered transactions/new.html.erb within layouts/application (Duration: 9.3ms | Allocations: 2887)
+  Rendered layout layouts/application.html.erb (Duration: 15.7ms | Allocations: 7126)
+Completed 200 OK in 29ms (Views: 16.6ms | ActiveRecord: 1.1ms | Allocations: 9963)
+
+
+Started POST "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:12:46 +0500
+Processing by TransactionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user_transaction_detail"=>{"name"=>"sample123", "amount"=>"112233"}, "commit"=>"Save", "category_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2)[0m  [["id", 1], ["id", 2]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mUserTransactionDetail Create (3.1ms)[0m  [1m[32mINSERT INTO "user_transaction_details" ("user_id", "name", "amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["name", "sample123"], ["amount", "112233.0"], ["created_at", "2024-02-16 09:12:46.266622"], ["updated_at", "2024-02-16 09:12:46.266622"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mGroupTransaction Create (0.7ms)[0m  [1m[32mINSERT INTO "group_transactions" ("group_id", "user_transaction_detail_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["group_id", 1], ["user_transaction_detail_id", 3], ["created_at", "2024-02-16 09:12:46.273256"], ["updated_at", "2024-02-16 09:12:46.273256"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (1.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+Redirected to http://127.0.0.1:3000/categories/1/transactions
+Completed 302 Found in 23ms (ActiveRecord: 6.0ms | Allocations: 10409)
+
+
+Started GET "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:12:46 +0500
+Processing by TransactionsController#index as TURBO_STREAM
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.5ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.4ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 1]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 5.1ms | Allocations: 1983)
+  Rendered layout layouts/application.html.erb (Duration: 9.3ms | Allocations: 6236)
+Completed 200 OK in 23ms (Views: 9.5ms | ActiveRecord: 2.1ms | Allocations: 11533)
+
+
+Started GET "/categories/1/transactions/new" for 127.0.0.1 at 2024-02-16 14:13:01 +0500
+Processing by TransactionsController#new as HTML
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:11:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/new.html.erb within layouts/application
+  Rendered transactions/new.html.erb within layouts/application (Duration: 4.9ms | Allocations: 1355)
+  Rendered layout layouts/application.html.erb (Duration: 13.5ms | Allocations: 5594)
+Completed 200 OK in 32ms (Views: 14.6ms | ActiveRecord: 1.5ms | Allocations: 7730)
+
+
+Started POST "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:13:08 +0500
+Processing by TransactionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user_transaction_detail"=>{"name"=>"fgfd", "amount"=>"55"}, "commit"=>"Save", "category_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mUserTransactionDetail Load (0.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3)[0m  [["id", 1], ["id", 2], ["id", 3]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mUserTransactionDetail Create (2.1ms)[0m  [1m[32mINSERT INTO "user_transaction_details" ("user_id", "name", "amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["name", "fgfd"], ["amount", "55.0"], ["created_at", "2024-02-16 09:13:08.096337"], ["updated_at", "2024-02-16 09:13:08.096337"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mGroupTransaction Create (0.6ms)[0m  [1m[32mINSERT INTO "group_transactions" ("group_id", "user_transaction_detail_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["group_id", 1], ["user_transaction_detail_id", 4], ["created_at", "2024-02-16 09:13:08.100714"], ["updated_at", "2024-02-16 09:13:08.100714"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (1.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+Redirected to http://127.0.0.1:3000/categories/1/transactions
+Completed 302 Found in 20ms (ActiveRecord: 4.8ms | Allocations: 7673)
+
+
+Started GET "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:13:08 +0500
+Processing by TransactionsController#index as TURBO_STREAM
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.3ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.4ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 1]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 5.3ms | Allocations: 2121)
+  Rendered layout layouts/application.html.erb (Duration: 12.0ms | Allocations: 6409)
+Completed 200 OK in 26ms (Views: 12.0ms | ActiveRecord: 2.0ms | Allocations: 11709)
+
+
+Started GET "/categories" for 127.0.0.1 at 2024-02-16 14:13:23 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.8ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 23.2ms | Allocations: 5734)
+  Rendered layout layouts/application.html.erb (Duration: 28.6ms | Allocations: 9981)
+Completed 200 OK in 36ms (Views: 27.0ms | ActiveRecord: 3.0ms | Allocations: 11724)
+
+
+Started GET "/categories/1/transactions" for 127.0.0.1 at 2024-02-16 14:13:25 +0500
+Processing by TransactionsController#index as HTML
+  Parameters: {"category_id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.8ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.5ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (0.5ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 1]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 6.4ms | Allocations: 2116)
+  Rendered layout layouts/application.html.erb (Duration: 12.2ms | Allocations: 6369)
+Completed 200 OK in 35ms (Views: 12.4ms | ActiveRecord: 3.1ms | Allocations: 11664)
+
+
+Started GET "/categories" for 127.0.0.1 at 2024-02-16 14:13:40 +0500
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.5ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (1.1ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2)[0m  [["group_id", 1], ["group_id", 2]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.5ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.4ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 37.6ms | Allocations: 5753)
+  Rendered layout layouts/application.html.erb (Duration: 46.4ms | Allocations: 10043)
+Completed 200 OK in 57ms (Views: 44.6ms | ActiveRecord: 3.4ms | Allocations: 11798)
+
+
+Started GET "/categories/new.1" for 127.0.0.1 at 2024-02-16 14:17:21 +0500
+Processing by CategoriesController#new as */*
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/new.html.erb within layouts/application
+  Rendered categories/new.html.erb within layouts/application (Duration: 39.1ms | Allocations: 5632)
+  Rendered layout layouts/application.html.erb (Duration: 47.4ms | Allocations: 9871)
+Completed 200 OK in 53ms (Views: 48.2ms | ActiveRecord: 0.2ms | Allocations: 11645)
+
+
+Started POST "/categories" for 127.0.0.1 at 2024-02-16 14:17:31 +0500
+Processing by CategoriesController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "category"=>{"name"=>"jfgjk", "icon"=>"fas fa-star"}, "commit"=>"Create Category"}
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/categories_controller.rb:21:in `create'
+  [1m[36mCategory Create (2.9ms)[0m  [1m[32mINSERT INTO "categories" ("user_id", "name", "icon", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["name", "jfgjk"], ["icon", "fas fa-star"], ["created_at", "2024-02-16 09:17:31.923899"], ["updated_at", "2024-02-16 09:17:31.923899"]]
+  ↳ app/controllers/categories_controller.rb:21:in `create'
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/categories_controller.rb:21:in `create'
+Redirected to http://127.0.0.1:3000/categories
+Completed 302 Found in 16ms (ActiveRecord: 4.7ms | Allocations: 3897)
+
+
+Started GET "/categories" for 127.0.0.1 at 2024-02-16 14:17:31 +0500
+Processing by CategoriesController#index as TURBO_STREAM
+  [1m[36mUser Load (0.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.3ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.4ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2, $3)[0m  [["group_id", 1], ["group_id", 2], ["group_id", 3]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.7ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.2ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 3]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 17.6ms | Allocations: 6834)
+  Rendered layout layouts/application.html.erb (Duration: 23.7ms | Allocations: 11112)
+Completed 200 OK in 30ms (Views: 22.5ms | ActiveRecord: 2.3ms | Allocations: 12866)
+
+
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+Started GET "/" for 127.0.0.1 at 2024-02-16 14:45:51 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (2.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (1.4ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (2.1ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2, $3)[0m  [["group_id", 1], ["group_id", 2], ["group_id", 3]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (1.3ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (1.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (1.7ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (1.7ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 3]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 605.1ms | Allocations: 120781)
+  Rendered layout layouts/application.html.erb (Duration: 684.5ms | Allocations: 139036)
+Completed 200 OK in 1249ms (Views: 675.7ms | ActiveRecord: 95.1ms | Allocations: 338795)
+
+
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+Started GET "/" for 127.0.0.1 at 2024-02-16 15:15:17 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  Rendering layout layouts/application.html.erb
+  Rendering categories/index.html.erb within layouts/application
+  [1m[36mCategory Load (0.6ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mGroupTransaction Load (0.7ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" IN ($1, $2, $3)[0m  [["group_id", 1], ["group_id", 2], ["group_id", 3]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Load (0.6ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/views/categories/index.html.erb:20
+  [1m[36mUserTransactionDetail Sum (0.9ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 1]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.6ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  [1m[36mUserTransactionDetail Sum (0.5ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 3]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendered categories/index.html.erb within layouts/application (Duration: 284.3ms | Allocations: 120688)
+  Rendered layout layouts/application.html.erb (Duration: 325.6ms | Allocations: 138943)
+Completed 200 OK in 599ms (Views: 318.6ms | ActiveRecord: 38.9ms | Allocations: 338695)
+
+
+Started GET "/categories/2/transactions" for 127.0.0.1 at 2024-02-16 15:15:21 +0500
+Processing by TransactionsController#index as HTML
+  Parameters: {"category_id"=>"2"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.7ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (1.2ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (1.2ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 2]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 15.6ms | Allocations: 2023)
+  Rendered layout layouts/application.html.erb (Duration: 34.7ms | Allocations: 6276)
+Completed 200 OK in 72ms (Views: 36.2ms | ActiveRecord: 4.7ms | Allocations: 10948)
+
+
+Started GET "/categories/2/transactions/new" for 127.0.0.1 at 2024-02-16 15:15:26 +0500
+Processing by TransactionsController#new as HTML
+  Parameters: {"category_id"=>"2"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (0.9ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:11:in `new'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/new.html.erb within layouts/application
+  Rendered transactions/new.html.erb within layouts/application (Duration: 25.5ms | Allocations: 2890)
+  Rendered layout layouts/application.html.erb (Duration: 43.8ms | Allocations: 7129)
+Completed 200 OK in 67ms (Views: 46.1ms | ActiveRecord: 1.8ms | Allocations: 9999)
+
+
+Started POST "/categories/2/transactions" for 127.0.0.1 at 2024-02-16 15:15:34 +0500
+Processing by TransactionsController#create as TURBO_STREAM
+  Parameters: {"authenticity_token"=>"[FILTERED]", "user_transaction_detail"=>{"name"=>"lkffs", "amount"=>"40"}, "commit"=>"Save", "category_id"=>"2"}
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (1.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mGroupTransaction Load (1.4ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/controllers/transactions_controller.rb:16:in `create'
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mUserTransactionDetail Create (8.5ms)[0m  [1m[32mINSERT INTO "user_transaction_details" ("user_id", "name", "amount", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["user_id", 1], ["name", "lkffs"], ["amount", "40.0"], ["created_at", "2024-02-16 10:15:34.365102"], ["updated_at", "2024-02-16 10:15:34.365102"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mGroupTransaction Create (2.2ms)[0m  [1m[32mINSERT INTO "group_transactions" ("group_id", "user_transaction_detail_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["group_id", 2], ["user_transaction_detail_id", 5], ["created_at", "2024-02-16 10:15:34.383349"], ["updated_at", "2024-02-16 10:15:34.383349"]]
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+  [1m[36mTRANSACTION (2.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/transactions_controller.rb:20:in `create'
+Redirected to http://127.0.0.1:3000/categories/2/transactions
+Completed 302 Found in 80ms (ActiveRecord: 17.1ms | Allocations: 9589)
+
+
+Started GET "/categories/2/transactions" for 127.0.0.1 at 2024-02-16 15:15:34 +0500
+Processing by TransactionsController#index as TURBO_STREAM
+  Parameters: {"category_id"=>"2"}
+  [1m[36mUser Load (1.2ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 ORDER BY "users"."id" ASC LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  [1m[36mCategory Load (1.2ms)[0m  [1m[34mSELECT "categories".* FROM "categories" WHERE "categories"."id" = $1 LIMIT $2[0m  [["id", 2], ["LIMIT", 1]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mGroupTransaction Load (0.9ms)[0m  [1m[34mSELECT "group_transactions".* FROM "group_transactions" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Load (0.8ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" WHERE "user_transaction_details"."id" = $1[0m  [["id", 5]]
+  ↳ app/controllers/transactions_controller.rb:5:in `index'
+  [1m[36mUserTransactionDetail Sum (1.3ms)[0m  [1m[34mSELECT SUM("user_transaction_details"."amount") FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1[0m  [["group_id", 2]]
+  ↳ app/models/category.rb:21:in `total_amount'
+  Rendering layout layouts/application.html.erb
+  Rendering transactions/index.html.erb within layouts/application
+  [1m[36mUserTransactionDetail Load (1.2ms)[0m  [1m[34mSELECT "user_transaction_details".* FROM "user_transaction_details" INNER JOIN "group_transactions" ON "user_transaction_details"."id" = "group_transactions"."user_transaction_detail_id" WHERE "group_transactions"."group_id" = $1 ORDER BY "user_transaction_details"."created_at" DESC[0m  [["group_id", 2]]
+  ↳ app/views/transactions/index.html.erb:27
+  Rendered transactions/index.html.erb within layouts/application (Duration: 12.0ms | Allocations: 1716)
+  Rendered layout layouts/application.html.erb (Duration: 30.1ms | Allocations: 5969)
+Completed 200 OK in 76ms (Views: 30.7ms | ActiveRecord: 6.4ms | Allocations: 11219)
+
+
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
