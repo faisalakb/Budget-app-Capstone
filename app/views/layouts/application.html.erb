@@ -26,9 +26,10 @@
               <input type="hidden" name="_method" value="delete">
               <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
            <span class="user" > 
-           <button type="submit" class="log-in">Logout</button>
-            <p class="regTitle">Welcome, <%= current_user.name %></p>
+           <i class="fas fa-bars"></i>
+           <i class="fas fa-search search-icon"></i>
             </span>
+            
             </form>
 
           <% end %>

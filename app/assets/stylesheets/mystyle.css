@@ -38,9 +38,22 @@
   align-items: center;
 }
 
+.sign-up {
+  color: grey;
+}
+
 .container .log-in {
   background-color: #3778c2;
   color: #fff;
+}
+
+.forgetPassword {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: gray;
 }
 
 .container button:hover {
@@ -117,7 +130,7 @@ input::placeholder {
   padding: 20px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-top: 50px;
+  margin-top: 27px;
 }
 
 .actions {
@@ -137,7 +150,7 @@ input::placeholder {
 }
 
 .acLogin {
-  margin-top: -204px;
+  margin-top: -165px;
   position: absolute;
   right: 0;
   color: white;
@@ -146,10 +159,10 @@ input::placeholder {
 .user {
   display: flex;
   position: absolute;
-  margin-left: 30px;
+  margin-left: 20px;
   margin-top: 2px;
   color: #fff;
-  border: none;
+  font-size: x-large;
 }
 
 .custom-icon {
@@ -189,7 +202,7 @@ input::placeholder {
 }
 
 .nxtBtn {
-  margin-top: -355px;
+  margin-top: -305px;
 }
 
 .cutomAddCatBtn {
@@ -200,4 +213,8 @@ input::placeholder {
 
 .transAt {
   margin-left: 20%;
+}
+
+.search-icon {
+  margin-left: 340px;
 }
