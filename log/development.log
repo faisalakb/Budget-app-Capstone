@@ -1456,3 +1456,36 @@ Completed 200 OK in 76ms (Views: 30.7ms | ActiveRecord: 6.4ms | Allocations: 112
 
 DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
 DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+DEPRECATION WARNING: `Rails.application.secrets` is deprecated in favor of `Rails.application.credentials` and will be removed in Rails 7.2. (called from <main> at /home/faisal/Documents/BudgetApp/config/environment.rb:5)
+Started GET "/" for 127.0.0.1 at 2024-02-17 14:13:15 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (1.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+Completed 401 Unauthorized in 21ms (ActiveRecord: 0.0ms | Allocations: 4147)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-02-17 14:13:15 +0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 8.9ms | Allocations: 1110)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 243.2ms | Allocations: 34409)
+  Rendered layout layouts/application.html.erb (Duration: 312.2ms | Allocations: 52556)
+Completed 200 OK in 612ms (Views: 338.8ms | ActiveRecord: 35.8ms | Allocations: 233890)
+
+
+Started GET "/" for 127.0.0.1 at 2024-02-17 14:22:31 +0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CategoriesController#index as HTML
+Completed 401 Unauthorized in 30ms (ActiveRecord: 0.0ms | Allocations: 6251)
+
+
+Started GET "/users/sign_in" for 127.0.0.1 at 2024-02-17 14:22:31 +0500
+Processing by Devise::SessionsController#new as HTML
+  Rendering layout layouts/application.html.erb
+  Rendering devise/sessions/new.html.erb within layouts/application
+  Rendered devise/shared/_links.html.erb (Duration: 5.5ms | Allocations: 1110)
+  Rendered devise/sessions/new.html.erb within layouts/application (Duration: 209.4ms | Allocations: 31401)
+  Rendered layout layouts/application.html.erb (Duration: 263.4ms | Allocations: 49548)
+Completed 200 OK in 532ms (Views: 286.9ms | ActiveRecord: 30.4ms | Allocations: 228883)
+
+
