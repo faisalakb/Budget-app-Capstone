@@ -17,7 +17,7 @@ services:
         fromDatabase:
           name: rails_budget_app_development
           property: connectionString
-      - key:
+      - key: 5270314230a473fefd507252f3c3d399
         sync: false
       - key: WEB_CONCURRENCY
         value: 2 # sensible default
