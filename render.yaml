@@ -1,7 +1,7 @@
 databases:
   - name: mybudgetapp
     databaseName: rails_budget_app_development
-    user: postgres
+    user: faisal
     plan: free
 
 services:
